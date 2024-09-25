@@ -1,9 +1,35 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
 
-<div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Color="Color.Primary" Elevation="1" Dense="true">
+        <MudText Typo="Typo.h6">HMDb</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.End" OnClick="@((e) => DrawerToggle())" />
+    </MudAppBar>
+    <MudMainContent>
+        <MudContainer Fixed="true" Class="mt-3" Style="margin-left: 0;">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2" Anchor="Anchor.End">
+        <NavMenu />
+    </MudDrawer>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}
