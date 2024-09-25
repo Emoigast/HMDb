@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/HMDb/appsettings.json
+/HMDb/appsettings.Development.json
