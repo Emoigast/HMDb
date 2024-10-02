@@ -2,6 +2,24 @@
 
 <PageTitle>Home</PageTitle>
 
+@using HMDb.Data
+
+@inject IProduktKategoriData db_ProduktKategoriData
+
 <MudText Typo="Typo.h4">Hello, world!</MudText>
 
 <MudText Typo="Typo.body1">Welcome to your new app.</MudText>
+
+<MudText Typo="Typo.h4">Create Product Category</MudText>
+
+<MudTextField T="string" @bind-Value="_productCategoryName" />
+
+<MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="CreateProductCategory">Skapa</MudButton>
+
+@if (_productCategory is not null)
+{
+    foreach (var productCategory in _productCategory)
+    {
+        <p>@productCategory.Id - @productCategory.Name</p>
+    }
+}

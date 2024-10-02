@@ -1,4 +1,6 @@
 using HMDb.Components;
+using HMDb.Data;
+using HMDb.DbAccess;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
+builder.Services.AddTransient<IProduktKategoriData, ProduktKategoriData>();
 
 builder.Services.AddMudServices();
 

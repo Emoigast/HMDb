@@ -4,7 +4,7 @@ using Dapper;
 
 namespace HMDb.DbAccess;
 
-public class SqlDataAccess
+public class SqlDataAccess : ISqlDataAccess
 {
     private readonly IConfiguration _configuration;
     public SqlDataAccess(IConfiguration configuration)
