@@ -10,10 +10,10 @@
 <MudText Typo="Typo.h4">Administration</MudText>
 
 <MudText Typo="Typo.body1">Antal Produktkategorier: @count</MudText>
-<MudNavLink Href="/Administration/ProduktKategori" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ViewList">Produktkategori</MudNavLink>
+<MudNavLink Href="/Administration/ProduktKategorier" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ViewList">Produktkategorier</MudNavLink>
 
 @code {
-    private IEnumerable<Models.ProduktKategori>? _productCategory = [];
+    private IEnumerable<ProduktKategori>? _productCategory = [];
     private int count;
 
     protected override async Task OnInitializedAsync()
