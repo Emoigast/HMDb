@@ -10,16 +10,38 @@
 
 <MudText Typo="Typo.body1">Welcome to your new app.</MudText>
 
-<MudText Typo="Typo.h4">Create Product Category</MudText>
-
-<MudTextField T="string" @bind-Value="_productCategoryName" />
-
-<MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="CreateProductCategory">Skapa</MudButton>
+<MudText Typo="Typo.h4" GutterBottom>Create Product Category</MudText>
+<MudForm @ref="form">
+    <MudTextField T="string" Label="Product Category Name"
+                  @bind-Value="_productCategoryName"
+                  Required="true"
+                  Immediate="true"
+                  Placeholder="Enter category name"
+                  HelperText="This field is required."
+                  Validation="@(new Func<string, string>(ValidateName))" />
+    <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="CreateProductCategory">
+        Skapa
+    </MudButton>
+</MudForm>
 
 @if (_productCategory is not null)
 {
-    foreach (var productCategory in _productCategory)
-    {
-        <p>@productCategory.Id - @productCategory.Name</p>
-    }
+
+    <MudSimpleTable Dense="true" Hover="true" Bordered="true" Class="mt-6">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var productCategory in _productCategory)
+            {
+                <tr>
+                    <td>@productCategory.Id</td>
+                    <td>@productCategory.Name</td>
+                </tr>
+            }
+        </tbody>
+    </MudSimpleTable>
 }

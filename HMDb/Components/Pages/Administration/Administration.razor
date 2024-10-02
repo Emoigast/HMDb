@@ -2,6 +2,23 @@
 
 <PageTitle>Administration</PageTitle>
 
+@using HMDb.Data
+@using HMDb.Models
+
+@inject IProduktKategoriData db_ProduktKategoriData
+
 <MudText Typo="Typo.h4">Administration</MudText>
 
-<MudText Typo="Typo.body1">Administration Center</MudText>
+<MudText Typo="Typo.body1">Antal Produktkategorier: @count</MudText>
+<MudNavLink Href="/Administration/ProduktKategori" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ViewList">Produktkategori</MudNavLink>
+
+@code {
+    private IEnumerable<Models.ProduktKategori>? _productCategory = [];
+    private int count;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _productCategory = await db_ProduktKategoriData.GetProductCategories();
+        count = _productCategory.Count();
+    }
+}
