@@ -34,6 +34,19 @@ public partial class ProductCategoryPage
         return await DialogService.ShowAsync<CreateProductCategoryDialog>(null, parameters);
     }
 
+    private async Task<IDialogReference> OpenEditProductCategoryDialog(ProductCategory productCategory)
+    {
+        var parameters = new DialogParameters<UpdateProductCategoryDialog>
+        {
+            { x => x.TitleContent, "Edit product category" },
+            { x => x.ButtonText, "Save changes" },
+            { x => x.GetProductCategories, EventCallback.Factory.Create(this, GetProductCategories) },
+            { x => x.SelectedProductCategory, productCategory }
+        };
+
+        return await DialogService.ShowAsync<UpdateProductCategoryDialog>(null, parameters);
+    }
+
     private async Task OnProductCategoryCreated()
     {
         await GetProductCategories();

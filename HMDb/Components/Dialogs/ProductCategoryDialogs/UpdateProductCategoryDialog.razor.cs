@@ -4,7 +4,7 @@ using MudBlazor;
 
 namespace HMDb.Components.Dialogs.ProductCategoryDialogs;
 
-public partial class CreateProductCategoryDialog
+public partial class UpdateProductCategoryDialog
 {
     [CascadingParameter]
     private MudDialogInstance? MudDialog { get; set; }
@@ -12,10 +12,9 @@ public partial class CreateProductCategoryDialog
     [Parameter] public string? TitleContent { get; set; }
     [Parameter] public string? ButtonText { get; set; }
     [Parameter] public EventCallback GetProductCategories { get; set; }
+    [Parameter] public ProductCategory SelectedProductCategory { get; set; } = new();
 
     private MudForm form;
-
-    private string? _productCategoryName = string.Empty;
 
     private void Submit() => MudDialog?.Close(DialogResult.Ok(true));
     private void Cancel() => MudDialog?.Cancel();
@@ -39,16 +38,14 @@ public partial class CreateProductCategoryDialog
         return null;
     }
 
-    private async Task CreateProductCategory()
+    private async Task UpdateProductCategory()
     {
         await form.Validate();
 
         if (form.IsValid)
         {
-            await db_ProductCategoryData.CreateProductCategory(new ProductCategory
-            {
-                Name = _productCategoryName?.Trim(),
-            });
+            SelectedProductCategory.Name = SelectedProductCategory.Name?.Trim();
+            await db_ProductCategoryData.UpdateProductCategory(SelectedProductCategory);
 
             if (GetProductCategories.HasDelegate)
             {

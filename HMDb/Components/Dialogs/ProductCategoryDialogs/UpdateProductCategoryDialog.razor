@@ -10,8 +10,12 @@
     </TitleContent>
     <DialogContent>
         <MudForm @ref="form">
-            <MudTextField T="string" Label="Product Category Name"
-                          @bind-Value="_productCategoryName"
+            <MudTextField @bind-Value="SelectedProductCategory.Id"
+                          T="int" Label="Product Category Id"
+                          ReadOnly="true"
+                          Disabled="true" />
+            <MudTextField @bind-Value="SelectedProductCategory.Name"
+                          T="string" Label="Product Category Name"
                           Required="true"
                           Immediate="true"
                           Placeholder="Enter category name"
@@ -33,6 +37,6 @@
             </MudTooltip>
         }
         <MudButton OnClick="Cancel" Variant="Variant.Outlined" Color="Color.Error">Cancel</MudButton>
-        <MudButton OnClick="CreateProductCategory" Variant="Variant.Filled" Color="Color.Success">@ButtonText</MudButton>
+        <MudButton OnClick="UpdateProductCategory" Variant="Variant.Filled" Color="Color.Success">@ButtonText</MudButton>
     </DialogActions>
 </MudDialog>

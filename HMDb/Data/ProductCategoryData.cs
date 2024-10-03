@@ -14,7 +14,7 @@ public class ProductCategoryData : IProductCategoryData
 
     public async Task<List<ProductCategory>> GetProductCategories()
     {
-        string sql = "SELECT Id, Name FROM ProduktKategori";
+        string sql = "SELECT Id, Name FROM ProductCategory";
 
         IEnumerable<ProductCategory> productCategories = await _sql.LoadData<ProductCategory, dynamic>(sql, new { });
 
@@ -32,23 +32,21 @@ public class ProductCategoryData : IProductCategoryData
 
     public async Task CreateProductCategory(ProductCategory productCategory)
     {
-        string sql = "INSERT INTO ProduktKategori (Name) VALUES (@Name)";
+        string sql = "INSERT INTO ProductCategory (Name) VALUES (@Name)";
 
         await _sql.SaveData(sql, new { productCategory.Name });
     }
 
-    //public async Task UpdateMember(Member member)
-    //{
-    //    string sql = "UPDATE member" +
-    //                 " SET personalid = @personalId, name = @name, email = @email, phone = @phone" +
-    //                 " WHERE id = @id";
+    public async Task UpdateProductCategory(ProductCategory productCategory)
+    {
+        string sql = "UPDATE ProductCategory SET Name = @Name WHERE Id = @Id";
 
-    //    await _sql.SaveData(sql, new { member.PersonalId, member.Name, member.Email, member.Phone, member.Id });
-    //}
+        await _sql.SaveData(sql, new { productCategory.Id, productCategory.Name });
+    }
 
     public async Task DeleteProductCategory(int productCategoryId)
     {
-        string sql = "DELETE FROM ProduktKategori WHERE Id = @productCategoryId";
+        string sql = "DELETE FROM ProductCategory WHERE Id = @productCategoryId";
 
         await _sql.SaveData(sql, new { productCategoryId });
     }
