@@ -3,22 +3,13 @@
 <PageTitle>Administration</PageTitle>
 
 @using HMDb.Data
-@using HMDb.Models
 
 @inject IProductCategoryData db_ProductCategoryData
 
 <MudText Typo="Typo.h4">Administration</MudText>
 
-<MudText Typo="Typo.body1">Product Category count: @count</MudText>
+<MudText Typo="Typo.body1">Product Category count: @_productCategoryCount</MudText>
 <MudNavLink Href="/Administration/ProductCategories" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ViewList">Product Categories</MudNavLink>
 
-@code {
-    private IEnumerable<ProductCategory>? _productCategory = [];
-    private int count;
-
-    protected override async Task OnInitializedAsync()
-    {
-        _productCategory = await db_ProductCategoryData.GetProductCategories();
-        count = _productCategory.Count();
-    }
-}
+<MudText Typo="Typo.body1">Product Types count: </MudText>
+<MudNavLink Href="/Administration/ProductTypes" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ViewList">Product Types</MudNavLink>
