@@ -7,10 +7,7 @@ namespace HMDb.Components.Pages.Administration;
 
 public partial class ProductCategoryPage
 {
-    private MudForm form;
-
     private IEnumerable<ProductCategory>? _productCategory = [];
-    private string _productCategoryName = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -20,26 +17,27 @@ public partial class ProductCategoryPage
     private async Task GetProductCategories()
     {
         _productCategory = await db_ProductCategoryData.GetProductCategories();
+        _productCategory = _productCategory.OrderBy(productCategory => productCategory.Id);
     }
 
     private async Task<IDialogReference> OpenCreateProductCategoryDialog()
     {
         var parameters = new DialogParameters<CreateProductCategoryDialog>
         {
-            { x => x.TitleContent, "Create new product category" },
-            { x => x.ButtonText, "Create new" },
+            { x => x.TitleContent, "Create product category" },
+            { x => x.ButtonText, "Create" },
             { x => x.GetProductCategories, EventCallback.Factory.Create(this, GetProductCategories) }
         };
 
         return await DialogService.ShowAsync<CreateProductCategoryDialog>(null, parameters);
     }
 
-    private async Task<IDialogReference> OpenEditProductCategoryDialog(ProductCategory productCategory)
+    private async Task<IDialogReference> OpenUpdateProductCategoryDialog(ProductCategory productCategory)
     {
         var parameters = new DialogParameters<UpdateProductCategoryDialog>
         {
-            { x => x.TitleContent, "Edit product category" },
-            { x => x.ButtonText, "Save changes" },
+            { x => x.TitleContent, "Update product category" },
+            { x => x.ButtonText, "Update" },
             { x => x.GetProductCategories, EventCallback.Factory.Create(this, GetProductCategories) },
             { x => x.SelectedProductCategory, productCategory }
         };
@@ -47,15 +45,16 @@ public partial class ProductCategoryPage
         return await DialogService.ShowAsync<UpdateProductCategoryDialog>(null, parameters);
     }
 
-    private async Task OnProductCategoryCreated()
+    private async Task<IDialogReference> OpenDeleteProductCategoryDialog(ProductCategory productCategory)
     {
-        await GetProductCategories();
-    }
+        var parameters = new DialogParameters<DeleteProductCategoryDialog>
+        {
+            { x => x.TitleContent, "Delete product category" },
+            { x => x.ButtonText, "Delete" },
+            { x => x.GetProductCategories, EventCallback.Factory.Create(this, GetProductCategories) },
+            { x => x.SelectedProductCategory, productCategory }
+        };
 
-    private async Task DeleteProductCategory(ProductCategory productCategory)
-    {
-        await db_ProductCategoryData.DeleteProductCategory(productCategory.Id);
-
-        await GetProductCategories();
+        return await DialogService.ShowAsync<DeleteProductCategoryDialog>(null, parameters);
     }
 }

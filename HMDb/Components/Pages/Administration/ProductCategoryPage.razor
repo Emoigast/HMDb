@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (_productCategory.Count() > 0)
+        @if (_productCategory?.Count() > 0)
         {
             @foreach (var productCategory in _productCategory)
             {
@@ -30,8 +30,12 @@
                     <td>@productCategory.Id</td>
                     <td>@productCategory.Name</td>
                     <td>
-                        <MudIconButton OnClick="e => OpenEditProductCategoryDialog(productCategory)" Color="Color.Warning" Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.Edit" />
-                        <MudIconButton Color="Color.Error" Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.Delete" />
+                        <MudTooltip Text="Update" Placement="Placement.Top" Delay="100" ShowOnFocus="false">
+                            <MudIconButton OnClick="e => OpenUpdateProductCategoryDialog(productCategory)" Color="Color.Warning" Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.Edit" />
+                        </MudTooltip>
+                        <MudTooltip Text="Delete" Placement="Placement.Top" Delay="100" ShowOnFocus="false">
+                            <MudIconButton OnClick="e => OpenDeleteProductCategoryDialog(productCategory)" Color="Color.Error" Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.Delete" />
+                        </MudTooltip>
                     </td>
                 </tr>
             }

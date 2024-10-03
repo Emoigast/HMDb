@@ -21,15 +21,6 @@ public class ProductCategoryData : IProductCategoryData
         return productCategories.ToList();
     }
 
-    //public async Task<List<Member>> GetMembers(int brfId)
-    //{
-    //    string sql = "SELECT id, brf_id, personalid, name, email, phone FROM member WHERE brf_id = @brfId";
-
-    //    IEnumerable<Member> members = await _sql.LoadData<Member, dynamic>(sql, new { brfId });
-
-    //    return members.ToList();
-    //}
-
     public async Task CreateProductCategory(ProductCategory productCategory)
     {
         string sql = "INSERT INTO ProductCategory (Name) VALUES (@Name)";

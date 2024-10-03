@@ -6,9 +6,7 @@ namespace HMDb.Components.Dialogs.ProductCategoryDialogs;
 
 public partial class UpdateProductCategoryDialog
 {
-    [CascadingParameter]
-    private MudDialogInstance? MudDialog { get; set; }
-
+    [CascadingParameter] private MudDialogInstance? MudDialog { get; set; }
     [Parameter] public string? TitleContent { get; set; }
     [Parameter] public string? ButtonText { get; set; }
     [Parameter] public EventCallback GetProductCategories { get; set; }
