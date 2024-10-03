@@ -1,14 +1,14 @@
-﻿@page "/Administration/ProduktKategorier"
+﻿@page "/Administration/ProductCategories"
 
 @using HMDb.Data
 
-@inject IProduktKategoriData db_ProduktKategoriData
+@inject IProductCategoryData db_ProduktKategoriData
+@inject IDialogService DialogService
 
 <PageTitle>ProduktKategorier</PageTitle>
 
 <MudText Typo="Typo.h4">Produktkategorier</MudText>
 
-<MudText Typo="Typo.h4" GutterBottom>Create Product Category</MudText>
 <MudForm @ref="form">
     <MudTextField T="string" Label="Product Category Name"
                   @bind-Value="_productCategoryName"
@@ -18,18 +18,21 @@
                   HelperText="This field is required."
                   Validation="@(new Func<string, string>(ValidateName))" />
     <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="CreateProductCategory">
-        Skapa
+        Skapa ny
     </MudButton>
 </MudForm>
+<MudButton Color="Color.Primary" Variant="Variant.Filled">
+    Öppna Dialog
+</MudButton>
 
 @if (_productCategory is not null)
 {
-
     <MudSimpleTable Dense="true" Hover="true" Bordered="true" Class="mt-6">
         <thead>
             <tr>
                 <td>Id</td>
-                <td>Name</td>
+                <td>Benämning</td>
+                <td>Åtgärder</td>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +41,10 @@
                 <tr>
                     <td>@productCategory.Id</td>
                     <td>@productCategory.Name</td>
+                    <td>
+                        <MudIconButton Color="Color.Warning" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Edit" />
+                        <MudIconButton Color="Color.Error" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" OnClick="e => DeleteProductCategory(productCategory)" />
+                    </td>
                 </tr>
             }
         </tbody>

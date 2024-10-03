@@ -10,7 +10,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
-builder.Services.AddTransient<IProduktKategoriData, ProduktKategoriData>();
+builder.Services.AddTransient<IProductCategoryData, ProductCategoryData>();
 
 builder.Services.AddMudServices();
 

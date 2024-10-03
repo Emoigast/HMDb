@@ -1,8 +1,7 @@
 ﻿namespace HMDb.Models;
 
-public class ProduktKategori
+public class ProductCategory
 {
     public int Id { get; set; }
     public string? Name { get; set; }
-    public ProduktKategori? ProductCategory { get; set; }
 }

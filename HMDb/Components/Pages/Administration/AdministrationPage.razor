@@ -5,15 +5,15 @@
 @using HMDb.Data
 @using HMDb.Models
 
-@inject IProduktKategoriData db_ProduktKategoriData
+@inject IProductCategoryData db_ProduktKategoriData
 
 <MudText Typo="Typo.h4">Administration</MudText>
 
-<MudText Typo="Typo.body1">Antal Produktkategorier: @count</MudText>
-<MudNavLink Href="/Administration/ProduktKategorier" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ViewList">Produktkategorier</MudNavLink>
+<MudText Typo="Typo.body1">Product Category count: @count</MudText>
+<MudNavLink Href="/Administration/ProductCategories" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ViewList">Product Categories</MudNavLink>
 
 @code {
-    private IEnumerable<ProduktKategori>? _productCategory = [];
+    private IEnumerable<ProductCategory>? _productCategory = [];
     private int count;
 
     protected override async Task OnInitializedAsync()
