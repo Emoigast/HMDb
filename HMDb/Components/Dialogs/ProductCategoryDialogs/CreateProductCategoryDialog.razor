@@ -1,0 +1,41 @@
+﻿@using HMDb.Data
+
+@inject IProductCategoryData db_ProductCategoryData
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            @TitleContent
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudForm @ref="form">
+            <MudTextField T="string" Label="Product Category Name"
+                          @bind-Value="_productCategoryName"
+                          Required="true"
+                          Immediate="true"
+                          Placeholder="Enter category name"
+                          HelperText="This field is required."
+                          Validation="@(new Func<string, string>(ValidateName))" />
+            @*     <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="CreateProductCategory">
+            Create new
+            </MudButton> *@
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        @if (MudDialog?.Options.FullScreen == false)
+        {
+            <MudTooltip Text="Fullscreen" Placement="Placement.Top" Delay="100" ShowOnFocus="false">
+                <MudIconButton OnClick="ToggleFullScreen" Icon="@Icons.Material.Filled.Fullscreen" Variant="Variant.Text" />
+            </MudTooltip>
+        }
+        else
+        {
+            <MudTooltip Text="Exit Fullscreen" Placement="Placement.Top" Delay="100" ShowOnFocus="false">
+                <MudIconButton OnClick="ToggleFullScreen" Icon="@Icons.Material.Filled.FullscreenExit" Variant="Variant.Text" />
+            </MudTooltip>
+        }
+        <MudButton OnClick="Cancel" Variant="Variant.Outlined" Color="Color.Error">Cancel</MudButton>
+        <MudButton OnClick="CreateProductCategory" Variant="Variant.Filled" Color="Color.Success">@ButtonText</MudButton>
+    </DialogActions>
+</MudDialog>

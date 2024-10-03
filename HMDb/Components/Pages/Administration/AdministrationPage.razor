@@ -5,7 +5,7 @@
 @using HMDb.Data
 @using HMDb.Models
 
-@inject IProductCategoryData db_ProduktKategoriData
+@inject IProductCategoryData db_ProductCategoryData
 
 <MudText Typo="Typo.h4">Administration</MudText>
 
@@ -18,7 +18,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _productCategory = await db_ProduktKategoriData.GetProductCategories();
+        _productCategory = await db_ProductCategoryData.GetProductCategories();
         count = _productCategory.Count();
     }
 }

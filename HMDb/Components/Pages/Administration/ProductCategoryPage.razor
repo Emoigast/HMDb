@@ -2,27 +2,15 @@
 
 @using HMDb.Data
 
-@inject IProductCategoryData db_ProduktKategoriData
+@inject IProductCategoryData db_ProductCategoryData
 @inject IDialogService DialogService
 
-<PageTitle>ProduktKategorier</PageTitle>
+<PageTitle>Product Categories</PageTitle>
 
-<MudText Typo="Typo.h4">Produktkategorier</MudText>
+<MudText Typo="Typo.h4">Product Categories</MudText>
 
-<MudForm @ref="form">
-    <MudTextField T="string" Label="Product Category Name"
-                  @bind-Value="_productCategoryName"
-                  Required="true"
-                  Immediate="true"
-                  Placeholder="Enter category name"
-                  HelperText="This field is required."
-                  Validation="@(new Func<string, string>(ValidateName))" />
-    <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="CreateProductCategory">
-        Skapa ny
-    </MudButton>
-</MudForm>
-<MudButton Color="Color.Primary" Variant="Variant.Filled">
-    Öppna Dialog
+<MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="OpenCreateProductCategoryDialog">
+    Open Dialog
 </MudButton>
 
 @if (_productCategory is not null)
@@ -31,8 +19,8 @@
         <thead>
             <tr>
                 <td>Id</td>
-                <td>Benämning</td>
-                <td>Åtgärder</td>
+                <td>Name</td>
+                <td>Actions</td>
             </tr>
         </thead>
         <tbody>

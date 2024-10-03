@@ -1,4 +1,6 @@
-﻿using HMDb.Models;
+﻿using HMDb.Components.Dialogs.ProductCategoryDialogs;
+using HMDb.Models;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace HMDb.Components.Pages.Administration;
@@ -17,46 +19,30 @@ public partial class ProductCategoryPage
 
     private async Task GetProductCategories()
     {
-        _productCategory = await db_ProduktKategoriData.GetProductCategories();
+        _productCategory = await db_ProductCategoryData.GetProductCategories();
     }
 
-    private async Task CreateProductCategory()
+    private async Task<IDialogReference> OpenCreateProductCategoryDialog()
     {
-        await form.Validate();
-
-        if (form.IsValid)
+        var parameters = new DialogParameters<CreateProductCategoryDialog>
         {
+            { x => x.TitleContent, "Create new product category" },
+            { x => x.ButtonText, "Create new" },
+            { x => x.GetProductCategories, EventCallback.Factory.Create(this, GetProductCategories) }
+        };
 
-            await db_ProduktKategoriData.CreateProductCategory(new ProductCategory
-            {
-                Name = _productCategoryName,
-            });
+        return await DialogService.ShowAsync<CreateProductCategoryDialog>(null, parameters);
+    }
 
-            _productCategoryName = string.Empty;
-
-            await GetProductCategories();
-        }
+    private async Task OnProductCategoryCreated()
+    {
+        await GetProductCategories();
     }
 
     private async Task DeleteProductCategory(ProductCategory productCategory)
     {
-        await db_ProduktKategoriData.DeleteProductCategory(productCategory.Id);
+        await db_ProductCategoryData.DeleteProductCategory(productCategory.Id);
 
         await GetProductCategories();
-    }
-
-    private string ValidateName(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return "Product category name is required";
-        }
-
-        return null;
-    }
-
-    private async Task OpenDialog()
-    {
-
     }
 }
