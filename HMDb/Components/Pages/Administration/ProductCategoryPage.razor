@@ -16,9 +16,9 @@
 <MudSimpleTable Dense="true" Hover="true" Bordered="true">
     <thead>
         <tr>
-            <td>Id</td>
+            <td style="width: 5em;">Id</td>
             <td>Name</td>
-            <td>Actions</td>
+            <td style="width: 7em;">Actions</td>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +27,7 @@
             @foreach (var productCategory in _productCategory)
             {
                 <tr>
-                    <td>@productCategory.Id</td>
+                    <td style="text-align: end;">@productCategory.Id</td>
                     <td>@productCategory.Name</td>
                     <td>
                         <MudTooltip Text="Update" Placement="Placement.Top" Delay="100" ShowOnFocus="false">
