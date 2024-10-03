@@ -5,11 +5,12 @@
 @using HMDb.Data
 
 @inject IProductCategoryData db_ProductCategoryData
+@inject IProductTypeData db_ProductTypeData
 
 <MudText Typo="Typo.h4">Administration</MudText>
 
 <MudText Typo="Typo.body1">Product Category count: @_productCategoryCount</MudText>
 <MudNavLink Href="/Administration/ProductCategories" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ViewList">Product Categories</MudNavLink>
 
-<MudText Typo="Typo.body1">Product Types count: </MudText>
+<MudText Typo="Typo.body1">Product Types count: @_productTypeCount</MudText>
 <MudNavLink Href="/Administration/ProductTypes" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ViewList">Product Types</MudNavLink>

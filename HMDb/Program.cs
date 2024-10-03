@@ -11,6 +11,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddTransient<IProductCategoryData, ProductCategoryData>();
+builder.Services.AddTransient<IProductTypeData, ProductTypeData>();
 
 builder.Services.AddMudServices();
 
