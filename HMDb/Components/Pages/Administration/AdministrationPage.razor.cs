@@ -10,6 +10,8 @@ public partial class AdministrationPage
     private IEnumerable<ProductType>? _productType = [];
     private int _productTypeCount;
 
+    private int _inventoryCount;
+
     protected override async Task OnInitializedAsync()
     {
         _productCategory = await db_ProductCategoryData.GetProductCategories();
