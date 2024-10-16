@@ -1,6 +1,8 @@
 ﻿<MudNavMenu Rounded="true" Margin="Margin.Normal" Color="Color.Primary" Class="pa-2">
-    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">Startsida</MudNavLink>
-    <MudNavGroup Title="Inställningar" Expanded="true" Icon="@Icons.Material.Filled.Settings">
-        <MudNavLink Href="/Administration" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ViewList">Administration</MudNavLink>
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">Home</MudNavLink>
+    <MudDivider />
+    <MudNavGroup Title="Settings" Expanded="true" Icon="@Icons.Material.Filled.Settings">
+        <MudDivider />
+        <MudNavLink Href="/Administration" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ViewList">Administration</MudNavLink>
     </MudNavGroup>
 </MudNavMenu>

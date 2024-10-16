@@ -1,0 +1,42 @@
+﻿@using HMDb.Data
+
+@inject IProductTypeData db_ProductTypeData
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            @TitleContent
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudForm @ref="form">
+            <MudTextField @bind-Value="SelectedProductType.Id"
+                          T="int" Label="Product Type Id"
+                          ReadOnly="true"
+                          Disabled="true" />
+            <MudTextField @bind-Value="SelectedProductType.Name"
+                          T="string" Label="Product Type Name"
+                          Required="true"
+                          Immediate="true"
+                          Placeholder="Enter type name"
+                          HelperText="This field is required."
+                          Validation="@(new Func<string, string>(ValidateName))" />
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        @if (MudDialog?.Options.FullScreen == false)
+        {
+            <MudTooltip Text="Fullscreen" Placement="Placement.Top" Delay="100" ShowOnFocus="false">
+                <MudIconButton OnClick="ToggleFullScreen" Icon="@Icons.Material.Filled.Fullscreen" Variant="Variant.Text" />
+            </MudTooltip>
+        }
+        else
+        {
+            <MudTooltip Text="Exit Fullscreen" Placement="Placement.Top" Delay="100" ShowOnFocus="false">
+                <MudIconButton OnClick="ToggleFullScreen" Icon="@Icons.Material.Filled.FullscreenExit" Variant="Variant.Text" />
+            </MudTooltip>
+        }
+        <MudButton OnClick="Cancel" Variant="Variant.Outlined" Color="Color.Error">Cancel</MudButton>
+        <MudButton OnClick="UpdateProductType" Variant="Variant.Filled" Color="Color.Warning">@ButtonText</MudButton>
+    </DialogActions>
+</MudDialog>

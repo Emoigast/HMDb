@@ -3,7 +3,7 @@ using HMDb.Models;
 
 namespace HMDb.Data;
 
-public class ProductTypeData
+public class ProductTypeData : IProductTypeData
 {
     private readonly ISqlDataAccess _sql;
 
@@ -12,19 +12,33 @@ public class ProductTypeData
         _sql = sql;
     }
 
-    public async Task<List<ProductType>> GetProducts()
+    public async Task<List<ProductType>> GetProductTypes()
     {
         string sql = "SELECT Id, Name FROM ProductType";
 
-        IEnumerable<ProductType> products = await _sql.LoadData<ProductType, dynamic>(sql, new { });
+        IEnumerable<ProductType> productTypes = await _sql.LoadData<ProductType, dynamic>(sql, new { });
 
-        return products.ToList();
+        return productTypes.ToList();
     }
 
-    public async Task CreateProduct(ProductType product)
+    public async Task CreateProductType(ProductType productType)
     {
-        string sql = "";
+        string sql = "INSERT INTO ProductType (Name) VALUES (@Name)";
 
-        await _sql.SaveData(sql, new { });
+        await _sql.SaveData(sql, new { productType.Name });
+    }
+
+    public async Task UpdateProductType(ProductType productType)
+    {
+        string sql = "UPDATE ProductType SET Name = @Name WHERE Id = @Id";
+
+        await _sql.SaveData(sql, new { productType.Id, productType.Name });
+    }
+
+    public async Task DeleteProductType(int productTypeId)
+    {
+        string sql = "DELETE FROM ProductType WHERE Id = @productTypeId";
+
+        await _sql.SaveData(sql, new { productTypeId });
     }
 }
