@@ -15,45 +15,49 @@ public partial class CreateProductTypeDialog
 
     private string? _productTypeName = string.Empty;
 
+    private IEnumerable<ProductCategory> _productCategories = new List<ProductCategory>();
+    private int _selectedCategoryId = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _productCategories = await db_ProductCategoryData.GetProductCategories();
+        _productCategories = _productCategories.OrderBy(productCategory => productCategory.Id);
+    }
+
     private void Submit() => MudDialog?.Close(DialogResult.Ok(true));
     private void Cancel() => MudDialog?.Cancel();
+    private void ToggleFullScreen() => DialogHelper.ToggleFullScreen(MudDialog);
 
-    private void ToggleFullScreen()
+private string ValidateName(string value)
+{
+    if (string.IsNullOrWhiteSpace(value))
     {
-        if (MudDialog != null)
-        {
-            MudDialog.Options.FullScreen = !(MudDialog.Options.FullScreen ?? false);
-            MudDialog.SetOptions(MudDialog.Options);
-        }
+        return "Product type name is required";
     }
 
-    private string ValidateName(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return "Product type name is required";
-        }
+    return null;
+}
 
-        return null;
-    }
-
-    private async Task CreateProductType()
+private async Task CreateProductType()
+{
+    if (form != null)
     {
         await form.Validate();
-
-        if (form.IsValid)
-        {
-            await db_ProductTypeData.CreateProductType(new ProductType
-            {
-                Name = _productTypeName?.Trim(),
-            });
-
-            if (GetProductTypes.HasDelegate)
-            {
-                await GetProductTypes.InvokeAsync();
-            }
-
-            Submit();
-        }
     }
+
+    if (form?.IsValid == true)
+    {
+        await db_ProductTypeData.CreateProductType(new ProductType
+        {
+            Name = _productTypeName?.Trim(),
+        });
+
+        if (GetProductTypes.HasDelegate)
+        {
+            await GetProductTypes.InvokeAsync();
+        }
+
+        Submit();
+    }
+}
 }

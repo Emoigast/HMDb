@@ -17,15 +17,7 @@ public partial class CreateProductCategoryDialog
 
     private void Submit() => MudDialog?.Close(DialogResult.Ok(true));
     private void Cancel() => MudDialog?.Cancel();
-
-    private void ToggleFullScreen()
-    {
-        if (MudDialog != null)
-        {
-            MudDialog.Options.FullScreen = !(MudDialog.Options.FullScreen ?? false);
-            MudDialog.SetOptions(MudDialog.Options);
-        }
-    }
+    private void ToggleFullScreen() => DialogHelper.ToggleFullScreen(MudDialog);
 
     private string ValidateName(string value)
     {
