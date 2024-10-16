@@ -8,6 +8,8 @@ namespace HMDb.Components.Pages.Administration;
 public partial class ProductTypePage
 {
     private IEnumerable<ProductType>? _productType = [];
+    private IEnumerable<ProductCategory> _productCategories = new List<ProductCategory>();
+    private int _selectedCategoryId;
 
     protected override async Task OnInitializedAsync()
     {
@@ -18,6 +20,8 @@ public partial class ProductTypePage
     {
         _productType = await db_ProductTypeData.GetProductTypes();
         _productType = _productType.OrderBy(productType => productType.Id);
+        _productCategories = await db_ProductCategoryData.GetProductCategories();
+        _productCategories = _productCategories.OrderBy(productCategory => productCategory.Id);
     }
 
     private async Task<IDialogReference> OpenCreateProductTypeDialog()

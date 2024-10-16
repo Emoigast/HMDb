@@ -1,6 +1,7 @@
 ﻿@using HMDb.Data
 
 @inject IProductTypeData db_ProductTypeData
+@inject IProductCategoryData db_ProductCategoryData
 
 <MudDialog>
     <TitleContent>
@@ -21,6 +22,17 @@
                           Placeholder="Enter type name"
                           HelperText="This field is required."
                           Validation="@(new Func<string, string>(ValidateName))" />
+            <MudSelect T="int" Label="Select Category"
+                       @bind-Value="_selectedCategoryId"
+                       Required="true"
+                       Immediate="true"
+                       HelperText="Please select a product category."
+                       Validation="@(new Func<string, string>(ValidateName))">
+                @foreach (var productCategory in _productCategories)
+                {
+                    <MudSelectItem Value="@productCategory.Id">@productCategory.Name</MudSelectItem>
+                }
+            </MudSelect>
         </MudForm>
     </DialogContent>
     <DialogActions>

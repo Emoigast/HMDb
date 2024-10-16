@@ -3,6 +3,7 @@
 @using HMDb.Data
 
 @inject IProductTypeData db_ProductTypeData
+@inject IProductCategoryData db_ProductCategoryData
 @inject IDialogService DialogService
 
 <PageTitle>Product Types</PageTitle>
@@ -18,6 +19,7 @@
         <tr>
             <td style="width: 5em;">Id</td>
             <td>Name</td>
+            <td>Category</td>
             <td style="width: 7em;">Actions</td>
         </tr>
     </thead>
@@ -29,6 +31,7 @@
                 <tr>
                     <td style="text-align: end;">@productType.Id</td>
                     <td>@productType.Name</td>
+                    <td>@_productCategories.FirstOrDefault(x => x.Id == productType.ProductCategoryId).Name</td>
                     <td>
                         <MudTooltip Text="Update" Placement="Placement.Top" Delay="100" ShowOnFocus="false">
                             <MudIconButton OnClick="e => OpenUpdateProductTypeDialog(productType)" Color="Color.Warning" Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.Edit" />
@@ -45,6 +48,7 @@
             <tr>
                 <td>-</td>
                 <td>No Types found</td>
+                <td>-</td>
                 <td>-</td>
             </tr>
         }

@@ -14,7 +14,7 @@ public class ProductTypeData : IProductTypeData
 
     public async Task<List<ProductType>> GetProductTypes()
     {
-        string sql = "SELECT Id, Name FROM ProductType";
+        string sql = "SELECT Id, Name, ProductCategoryId FROM ProductType";
 
         IEnumerable<ProductType> productTypes = await _sql.LoadData<ProductType, dynamic>(sql, new { });
 
@@ -23,16 +23,16 @@ public class ProductTypeData : IProductTypeData
 
     public async Task CreateProductType(ProductType productType)
     {
-        string sql = "INSERT INTO ProductType (Name) VALUES (@Name)";
+        string sql = "INSERT INTO ProductType (Name, ProductCategoryId) VALUES (@Name, @ProductCategoryId)";
 
-        await _sql.SaveData(sql, new { productType.Name });
+        await _sql.SaveData(sql, new { productType.Name, productType.ProductCategoryId });
     }
 
     public async Task UpdateProductType(ProductType productType)
     {
-        string sql = "UPDATE ProductType SET Name = @Name WHERE Id = @Id";
+        string sql = "UPDATE ProductType SET Name = @Name, ProductCategoryId = @ProductCategoryId WHERE Id = @Id";
 
-        await _sql.SaveData(sql, new { productType.Id, productType.Name });
+        await _sql.SaveData(sql, new { productType.Id, productType.Name, productType.ProductCategoryId });
     }
 
     public async Task DeleteProductType(int productTypeId)

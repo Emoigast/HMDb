@@ -12,7 +12,17 @@ public partial class UpdateProductTypeDialog
     [Parameter] public EventCallback GetProductTypes { get; set; }
     [Parameter] public ProductType SelectedProductType { get; set; } = new();
 
-    private MudForm form;
+    private MudForm? form;
+
+    private IEnumerable<ProductCategory> _productCategories = new List<ProductCategory>();
+    private int _selectedCategoryId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _productCategories = await db_ProductCategoryData.GetProductCategories();
+        _productCategories = _productCategories.OrderBy(productCategory => productCategory.Id);
+        _selectedCategoryId = SelectedProductType.ProductCategoryId;
+    }
 
     private void Submit() => MudDialog?.Close(DialogResult.Ok(true));
     private void Cancel() => MudDialog?.Cancel();
@@ -35,6 +45,7 @@ public partial class UpdateProductTypeDialog
         if (form.IsValid)
         {
             SelectedProductType.Name = SelectedProductType.Name?.Trim();
+            SelectedProductType.ProductCategoryId = _selectedCategoryId;
             await db_ProductTypeData.UpdateProductType(SelectedProductType);
 
             if (GetProductTypes.HasDelegate)

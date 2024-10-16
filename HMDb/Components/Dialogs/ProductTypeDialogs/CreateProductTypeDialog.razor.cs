@@ -11,7 +11,7 @@ public partial class CreateProductTypeDialog
     [Parameter] public string? ButtonText { get; set; }
     [Parameter] public EventCallback GetProductTypes { get; set; }
 
-    private MudForm form;
+    private MudForm? form;
 
     private string? _productTypeName = string.Empty;
 
@@ -50,6 +50,7 @@ private async Task CreateProductType()
         await db_ProductTypeData.CreateProductType(new ProductType
         {
             Name = _productTypeName?.Trim(),
+            ProductCategoryId = _selectedCategoryId
         });
 
         if (GetProductTypes.HasDelegate)
