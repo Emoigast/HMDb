@@ -1,12 +1,12 @@
 ﻿namespace HMDb.Models;
 
-public class ProduktTyp
+public class ProductType
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public ProduktKategori ProductCategory { get; set; }
+    public ProductCategory ProductCategory { get; set; }
 
-    public ProduktTyp(int id, string name, ProduktKategori productCategory)
+    public ProductType(int id, string name, ProductCategory productCategory)
     {
         Id = id;
         Name = name;
